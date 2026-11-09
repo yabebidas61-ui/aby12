@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Para mi osita 🧸</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg1:#ffe3ec; --bg2:#ffc2d6; --ink:#5a2a3c; --paper:#fffaf5; --accent:#e0457b; --env:#f7a1bd; --env2:#f48fb1;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg1:#2a1220; --bg2:#4a1d38; --ink:#fbe4ec; --paper:#3a1a2c; --accent:#ff7aa8; --env:#a8466b; --env2:#933b5c;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg1:#2a1220; --bg2:#4a1d38; --ink:#fbe4ec; --paper:#3a1a2c; --accent:#ff7aa8; --env:#a8466b; --env2:#933b5c;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:linear-gradient(160deg,var(--bg1),var(--bg2));
+  color:var(--ink);
+  font-family:'Quicksand',system-ui,sans-serif;
+  display:flex;align-items:center;justify-content:center;
+  overflow-x:hidden;overflow-y:auto;
+}
+.heart{position:fixed;bottom:-40px;pointer-events:none;animation:rise linear forwards;opacity:.8;z-index:0}
+@keyframes rise{to{transform:translateY(-115vh) rotate(25deg);opacity:0}}
+main{position:relative;z-index:1;width:100%;max-width:440px;padding:24px 16px;text-align:center}
+.hint{font-family:'Dancing Script',cursive,serif;font-size:1.6rem;color:var(--accent);margin:0 0 18px}
+.env{
+  position:relative;width:100%;max-width:320px;height:210px;margin:0 auto;cursor:pointer;
+  background:var(--env);border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.2);
+  transition:transform .3s;
+}
+.env:hover{transform:scale(1.03)}
+.env::before{content:"";position:absolute;inset:0;border-radius:10px;
+  background:linear-gradient(135deg,transparent 50%,var(--env2) 50%) left/50% 100% no-repeat,
+             linear-gradient(225deg,transparent 50%,var(--env2) 50%) right/50% 100% no-repeat}
+.flap{position:absolute;top:0;left:0;width:100%;height:55%;background:var(--env2);
+  clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .6s;z-index:3;border-radius:10px 10px 0 0}
+.seal{position:absolute;top:44%;left:50%;transform:translate(-50%,-50%);font-size:2rem;z-index:4;transition:opacity .3s;animation:beat 1.2s infinite}
+@keyframes beat{50%{transform:translate(-50%,-50%) scale(1.25)}}
+.env.open .flap{transform:rotateX(180deg)}
+.env.open .seal{opacity:0}
+.letter{
+  display:none;background:var(--paper);border-radius:16px;padding:28px 24px;text-align:left;
+  box-shadow:0 14px 40px rgba(0,0,0,.22);border:2px solid var(--accent);
+  animation:pop .7s ease both;
+}
+.letter.show{display:block}
+@keyframes pop{from{opacity:0;transform:translateY(30px) scale(.94)}}
+.letter h1{font-family:'Dancing Script',cursive,serif;font-size:2.2rem;color:var(--accent);margin:0 0 4px;text-align:center}
+.bear{text-align:center;font-size:2.4rem;margin-bottom:6px}
+#text{line-height:1.7;font-size:1.02rem;min-height:120px}
+#text p{margin:0 0 12px}
+.sign{font-family:'Dancing Script',cursive,serif;font-size:1.7rem;color:var(--accent);text-align:right;margin-top:8px;opacity:0;transition:opacity 1s}
+.sign.show{opacity:1}
+button{
+  margin-top:18px;border:0;background:var(--accent);color:#fff;font:600 1rem 'Quicksand',system-ui,sans-serif;
+  padding:12px 22px;border-radius:999px;cursor:pointer;display:none;box-shadow:0 6px 16px rgba(224,69,123,.4)
+}
+button.show{display:inline-block}
+button:active{transform:scale(.96)}
+</style>
+</head>
+<body>
+<main>
+  <p class="hint" id="hint">Tengo algo para ti, Abi… 💌</p>
+  <div class="env" id="env"><div class="flap"></div><div class="seal">❤️</div></div>
+  <section class="letter" id="letter">
+    <div class="bear">🧸</div>
+    <h1>Para mi osita</h1>
+    <div id="text"></div>
+    <div class="sign" id="sign">Tu amor, siempre. 🤍</div>
+    <div style="text-align:center"><button id="btn">Te amo, osita 💖</button></div>
+  </section>
+</main>
+<script>
+const paras=[
+"Abi, mi amor:",
+"Quiero que sepas que eres lo más bonito que me ha pasado. Cada día a tu lado me recuerda lo afortunado que soy de tenerte.",
+"Sé que no siempre ha sido fácil. Hemos tenido días difíciles y problemas, pero no cambiaría nada, porque cada obstáculo me ha mostrado lo fuerte que es lo que sentimos. Contigo aprendí que amar es quedarse, y yo me quedo. Siempre.",
+"Mi osita, quiero que lo sientas con todo tu corazón: no estás sola. Cuando el día pese, cuando tengas miedo o no tengas ganas de nada, voy a estar ahí para abrazarte fuerte y recordarte lo increíble que eres.",
+"Eres mi lugar seguro, mi paz y mi persona favorita en todo el mundo. Te amo con todo lo que soy, y lo mejor es que apenas estamos empezando."
+];
+const env=document.getElementById('env'),letter=document.getElementById('letter'),
+ text=document.getElementById('text'),sign=document.getElementById('sign'),
+ btn=document.getElementById('btn'),hint=document.getElementById('hint');
+let started=false;
+
+function hearts(n){
+  const e=['💗','💖','🤍','🧸','💕','🌸'];
+  for(let i=0;i<n;i++){
+    const h=document.createElement('div');
+    h.className='heart';
+    h.textContent=e[Math.floor(Math.random()*e.length)];
+    h.style.left=Math.random()*100+'vw';
+    h.style.fontSize=(14+Math.random()*22)+'px';
+    const d=5+Math.random()*5;
+    h.style.animationDuration=d+'s';
+    h.style.animationDelay=(Math.random()*2)+'s';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),(d+2.5)*1000);
+  }
+}
+
+async function type(){
+  for(const t of paras){
+    const p=document.createElement('p');
+    text.appendChild(p);
+    for(const ch of t){
+      p.textContent+=ch;
+      await new Promise(r=>setTimeout(r,22));
+    }
+    await new Promise(r=>setTimeout(r,250));
+  }
+  sign.classList.add('show');
+  btn.classList.add('show');
+}
+
+env.addEventListener('click',()=>{
+  if(started)return;
+  started=true;
+  env.classList.add('open');
+  hint.style.display='none';
+  hearts(18);
+  setTimeout(()=>{env.style.display='none';letter.classList.add('show');type();},700);
+});
+btn.addEventListener('click',()=>{
+  hearts(40);
+  btn.textContent='Yo más, mi amor 🥹💕';
+});
+</script>
+</body>
+</html>
